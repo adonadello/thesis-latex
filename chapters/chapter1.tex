@@ -443,3 +443,54 @@ Questo consente l'espansione orizzontale mediante l'aggiunta di nodi al cluster,
 Ciò agevola il lookup degli attori in modo indipendente dalla loro localizzazione fisica, promuovendo la \textit{location transparency}, e permette il rilevamento delle cadute di altri nodi.
 L'obiettivo primario del cluster è garantire la fault tolerance in caso di fallimento di un nodo e il load balancing per distribuire in modo efficiente i messaggi ai vari nodi.
 Inoltre, un \textit{actor system} può essere suddiviso in partizioni dislocate su nodi diversi per soddisfare esigenze prestazionali specifiche.
+
+\subsubsection[Ecosistema]{Ecosistema AKKA}
+Akka, analogamente a numerosi framework nel campo del Big Data, dispone di un proprio ecosistema ricco di librerie progettate per soddisfare le esigenze tradizionali che possono emergere nello sviluppo di soluzioni enterprise.
+Questo insieme di moduli amplia le capacità di Akka e ne favorisce l'integrazione in contesti complessi.
+
+\begin{itemize}
+  \item Il concetto chiave di Akka è rappresentato dagli \textit{Actors}, che costituiscono il fondamento del modello ad attori.
+  Questo paradigma offre una soluzione elegante per affrontare le sfide della programmazione concorrente, consentendo la gestione efficiente delle comunicazioni e degli stati all'interno di un sistema distribuito.
+  \item Il modulo \textit{Streams} amplia ulteriormente la capacità di Akka di gestire flussi di dati in modo asincrono e non bloccante.
+  Questa caratteristica è fondamentale in scenari in cui è necessario elaborare continuamente un elevato volume di informazioni, come nel caso di applicazioni che trattano dati in tempo reale o in ambienti in cui la latenza è critica.
+  \item L'implementazione di un server HTTP leggero, fornita dal modulo \textit{HTTP}, aggiunge un elemento di flessibilità e efficienza alle applicazioni Akka, specialmente in contesti in cui è richiesto un trattamento ottimizzato delle richieste web.
+  Questo si traduce in una maggiore capacità di gestire carichi di lavoro intensi e rispondere alle richieste degli utenti in modo rapido ed efficiente.
+  \item Il modulo \textit{Cluster} introduce concetti cruciali come resilienza e scalabilità attraverso l'adozione di tecniche di clustering.
+  Questo è particolarmente significativo in scenari in cui la disponibilità continua del servizio è essenziale, garantendo che il sistema sia in grado di adattarsi dinamicamente alle variazioni del carico di lavoro e di gestire efficacemente eventuali guasti hardware.
+  \item La distribuzione programmabile degli attori tramite il modulo \textit{Sharding} fornisce un meccanismo potente per ottimizzare l'allocazione delle risorse in un ambiente distribuito.
+  Ciò consente di massimizzare l'utilizzo delle risorse e migliorare l'efficienza complessiva del sistema.
+  \item Il modulo \textit{Distributed Data} contribuisce alla coerenza e alla sincronizzazione dei dati tra i nodi, fornendo un key-value store distribuito.
+  Questo è essenziale per garantire che i dati siano sempre aggiornati e consistenti in un ambiente in cui la distribuzione dei dati è una sfida chiave.
+  \item La persistenza dello stato, implementata attraverso il modulo \textit{Persistence} utilizzando il pattern event-sourcing, offre una soluzione robusta per gestire la memorizzazione e il recupero degli stati del sistema.
+  Questo è particolarmente rilevante in applicazioni in cui la tracciabilità degli eventi passati è essenziale per comprendere lo stato attuale del sistema.
+  \item \textit{Alpakka} si distingue per il suo focus sul reactive streaming e la sua libreria dedicata all'integrazione con Apache Kafka e server applicativi di tipo gRPC.
+  Ciò amplia ulteriormente le capacità di Akka nel trattare flussi di dati reattivi e nella connessione con altri sistemi distribuiti, offrendo un'integrazione senza soluzione di continuità con tecnologie ampiamente utilizzate nell'ecosistema Big Data.
+  \item Infine, il modulo "\textit{Management}" estende l'utilizzo di Akka su sistemi Cloud, offrendo un'implementazione semplificata e ottimizzata per ambienti basati su servizi cloud. 
+  Ciò riflette l'impegno di Akka nel rimanere al passo con le tendenze emergenti nella distribuzione delle applicazioni e nell'adozione di architetture cloud-native.
+\end{itemize}
+Inoltre, l'azienda Lightbend ha sviluppato il framework \textit{Play} come complemento a Akka, offrendo un ambiente di sviluppo completo per la creazione di soluzioni web in Scala e Java.
+L'integrazione di Akka all'interno del motore di Play sottolinea la coerenza e la sinergia tra questi framework, offrendo agli sviluppatori una piattaforma completa e potente per affrontare sfide complesse nello sviluppo di applicazioni web avanzate e scalabili.
+
+\subsubsection[Pattern]{Pattern e Anti-Pattern}
+L'implementazione del modello ad attori introduce una fase iniziale di adozione caratterizzata da un elevato tasso di errore nell'assimilazione dei principi fondamentali.
+Pertanto, risulta prezioso delineare in maniera sintetica i pattern e, altrettanto significativo, gli anti-pattern da considerare attentamente durante la fase di progettazione di soluzioni basate sul modello ad attori, implementate tramite Akka.
+
+Tra i pattern riconosciuti, è opportuno evidenziare:
+\begin{itemize}
+  \item \textbf{Decomposizione del Lavoro}: un principio cardine consiste nella distribuzione del lavoro tra più attori, seguendo un paradigma di separazione delle responsabilità. Evitando un centralismo operativo, si favorisce una maggiore flessibilità e adattabilità del sistema.
+  \item \textbf{Immutabilità dei Messaggi}: i messaggi devono essere rappresentati esclusivamente da oggetti immutabili, assicurando coerenza e prevenendo problemi di concorrenza derivanti da modifiche simultanee.
+  \item \textbf{Gerarchia di Attori}: la creazione di attori in una gerarchia adeguata favorisce l'implementazione di strategie di supervisione efficaci, contribuendo alla gestione di eventuali errori in modo strutturato e robusto.
+  \item \textbf{Incapsulamento di Stato e Comportamenti}: sia lo stato di ciascun attore sia i relativi comportamenti devono essere incapsulati e non accessibili dall'esterno, promuovendo una corretta gestione degli oggetti e minimizzando l'interferenza esterna.
+  \item \textbf{Messaggistica Asincrona}: l'invio dei messaggi deve avvenire in modo asincrono e non bloccante, adottando un approccio fire-and-forget che incrementa l'efficienza e la reattività del sistema.
+\end{itemize}
+
+D'altra parte, tra gli anti-pattern da evitare si possono individuare:
+\begin{itemize}
+  \item \textbf{Stato Interno Pubblico e Mutabile}: evitare la definizione di uno stato interno pubblico e mutabile, che sarebbe accessibile e modificabile dall'esterno, compromettendo la stabilità e la coerenza del sistema.
+  \item \textbf{Gerarchia "\textit{Piatta}" di Attori}: la definizione di una gerarchia "piatta" degli attori dovrebbe essere evitata, in quanto una struttura gerarchica più articolata facilita la gestione degli attori e delle loro interazioni.
+  \item \textbf{Eccessiva Complessità nell'Esecuzione}: limitare l'esecuzione di numerosi actor system sullo stesso nodo, o l'esecuzione di un eccessivo numero di attori all'interno di uno stesso actor system. In alternativa, distribuire gli actor system su nodi distinti e distribuiti, evitando sovraccarichi e migliorando la scalabilità.
+  \item \textbf{Messaggistica Sincrona e Bloccante}: l'invio sincrono e bloccante di messaggi, soprattutto nel contesto request-response, va evitato per preservare la fluidità e la tempestività del sistema.
+  \item \textbf{Definizione di Comportamenti Sensibili alle Race Condition}: evitare la definizione di comportamenti degli attori influenzati dal fenomeno delle race condition, in cui il risultato finale è dipendente dall'ordine di elaborazione dei singoli task in un contesto concorrente.
+\end{itemize}
+
+Comprensione accurata e attenta applicazione di tali pattern e anti-pattern è cruciale per garantire la corretta implementazione di soluzioni basate sul modello ad attori, consentendo la realizzazione di sistemi robusti, scalabili e adattabili alle sfide dell'ambiente distribuito.
