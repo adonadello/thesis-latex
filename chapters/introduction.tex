@@ -12,8 +12,8 @@ L'analisi di questo vasto patrimonio genetico attraverso algoritmi avanzati ha a
 L'enorme quantità di dati disponibili ha spinto l'analisi avanzata verso l'adozione di tecniche di data mining sempre più sofisticate.
 Tuttavia, questa crescita esponenziale ha portato con sé sfide significative, come la diversità dei dati, il loro volume considerevole e l'esigenza di scalabilità per fronteggiare richieste dinamiche. 
 Ciò ha stimolato l'innovazione in architetture e modelli di analisi dati, con una transizione da soluzioni tradizionali enterprise a approcci più agili e adattabili. \\
-Il punto di partenza per ciò che oggi consideriamo come Big Data può essere fatto risalire al 2004 con l'introduzione del paradigma di programmazione MapReduce da parte dei ricercatori di Google, Jeffrey Dean e Sanjay Ghemawat. 
-Questa innovazione, basata sul principio del Divide et Impera, ha rivoluzionato la capacità di elaborazione distribuita, aprendo la strada all'analisi su vasta scala e all'utilizzo efficiente delle risorse in ambienti cloud.
+Il punto di partenza per ciò che oggi consideriamo come Big Data può essere fatto risalire al 2004 con l'introduzione del paradigma di programmazione MapReduce da parte dei ricercatori di Google, Jeffrey Dean e Sanjay Ghemawat \cite{mapReduce}. 
+Questa innovazione, basata sul principio del \textit{Divide et Impera}, ha rivoluzionato la capacità di elaborazione distribuita, aprendo la strada all'analisi su vasta scala e all'utilizzo efficiente delle risorse in ambienti cloud.
 
 La necessità di elaborare grandi volumi di dati in tempo reale ha dato origine a un'architettura a pipeline. 
 Questo modello, in cui ogni componente processa l'output del precedente, è stato plasmato per rispondere alle esigenze di contesti dinamici e mutevoli. 
@@ -32,7 +32,7 @@ La tipica architettura Lambda può essere suddivisa in tre strati distinti:
     \item \textbf{Serving Layer}: interfaccia verso l'esterno, offre servizi di interrogazione e fornisce in maniera trasparente all'utente un unico virtuale dataset costituito aggregando opportunamente i dati prodotti dalle componenti batch e real time.
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width = 0.6\textwidth]{diagram_of_lambda_architecture.png}
     \caption[Architettura LAMBDA]{Diagramma di un'architettura LAMBDA \cite{lambdaArchitecture}}
@@ -60,7 +60,7 @@ La stack \textit{SMACK} è un insieme di tecnologie open source progettato per g
 L'acronimo \textit{SMACK} rappresenta le principali componenti dello stack: \textit{Spark}, \textit{Mesos}, \textit{Akka}, \textit{Cassandra} e \textit{Kafka}.
 Ogni componente svolge un ruolo cruciale nel garantire una gestione efficiente, scalabile e resiliente dei dati.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{smack.png}
     \caption[Stack SMACK]{Architettura dello Stack SMACK \cite{smack}}
@@ -81,7 +81,7 @@ Analizziamo ogni componente:
     \end{itemize}
     \item \textbf{Mesos} è un sistema di gestione delle risorse distribuite che fornisce un'astrazione delle risorse della macchina, consentendo l'esecuzione di applicazioni su cluster eterogenei. Mesos offre una gestione dinamica delle risorse, consentendo alle applicazioni di condividere efficientemente risorse come CPU e memoria, rendendo più flessibile l'utilizzo delle infrastrutture.
     
-    \begin{figure}[h]
+    \begin{figure}[H]
         \centering
         \includegraphics[width = 0.5\textwidth]{mesos.png}
         \caption[Architettura MESOS]{Diagramma dell'architettura di MESOS \cite{mesos}}

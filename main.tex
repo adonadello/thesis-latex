@@ -9,19 +9,26 @@
 \usepackage{hyperref}
 \usepackage[linesnumbered,ruled]{algorithm2e}
 \usepackage{listings}
-\usepackage{color}
+\usepackage{xcolor}
 \usepackage{biblatex}
+\usepackage{lmodern}
+\usepackage{float}
 
 \lstset{
-  basicstyle=\footnotesize\ttfamily,
+  belowcaptionskip=1\baselineskip,
   breaklines=true,
-  extendedchars=false,
-  keepspaces=true,
+  frame=none,
+  numbers=none, 
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  backgroundcolor=\color{gray!10!white},
 }
 
-\setlength{\textfloatsep}{40.0pt plus 20.0pt minus 20.0pt}
-\setlength{\floatsep}{40.0pt plus 20.0pt minus 20.0pt}
-\setlength{\intextsep}{40.0pt plus 20.0pt minus 20.0pt}
+\setlength{\textfloatsep}{28.0pt plus 14.0pt minus 14.0pt}
+\setlength{\floatsep}{28.0pt plus 14.0pt minus 14.0pt}
+\setlength{\intextsep}{28.0pt plus 14.0pt minus 14.0pt}
 
 \setcounter{tocdepth}{3}
 

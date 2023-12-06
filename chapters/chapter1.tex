@@ -17,7 +17,7 @@ D'altra parte, la concorrenza riguarda la gestione simultanea di più attività,
 Le attività concorrenti possono essere eseguite in momenti diversi e possono condividere risorse, richiedendo un meccanismo di coordinamento per evitare conflitti.
 La concorrenza è spesso associata a sistemi multitasking, dove le attività vengono commutate rapidamente in modo apparentemente simultaneo, anche se in realtà vengono eseguite in modo alternato.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width = 0.4\textwidth]{concurrency.jpg}
     \hspace{\fill}
@@ -28,7 +28,7 @@ La concorrenza è spesso associata a sistemi multitasking, dove le attività ven
 \section[Modello ad attori]{Il modello ad attori}
 Il modello ad attori rappresenta un paradigma di programmazione che affonda le sue radici nelle teorie matematiche e nelle pratiche di elaborazione parallela. 
 La sua storia si intreccia con il desiderio di affrontare le sfide emergenti dell'elaborazione parallela e distribuita. 
-Un momento cruciale per la formulazione del modello ad attori fu l'opera "\textit{A universal modular ACTOR formalism for artificial intelligence}" \cite{actorsPaper} scritta da Carl Hewitt, Peter Bishop, e Richard Steiger nel 1973. 
+Un momento cruciale per la formulazione del modello ad attori fu l'opera "\textit{A universal modular ACTOR formalism for artificial intelligence}" \cite{hewitt1973universal} scritta da Carl Hewitt, Peter Bishop, e Richard Steiger nel 1973. 
 Questo lavoro pionieristico introdusse i fondamenti teorici del modello ad attori, proponendo una visione innovativa dell'elaborazione parallela. \\
 Il modello ad attori si basa sull'idea che l'unità fondamentale di elaborazione sia l'"attore", un'entità computazionale indipendente che comunica con gli altri attraverso lo scambio di messaggi.
 Ogni attore è autonomo e possiede il proprio stato interno, eseguendo operazioni in risposta ai messaggi ricevuti.
@@ -41,7 +41,7 @@ La decentralizzazione offre una maggiore resistenza agli errori e una migliore t
 Negli anni successivi alla sua introduzione, il modello ad attori ha ispirato lo sviluppo di linguaggi di programmazione specifici, come Erlang, che implementano i principi fondamentali del modello ad attori.
 Questi linguaggi sono stati utilizzati per la creazione di sistemi distribuiti, sistemi di telecomunicazione e applicazioni orientate agli eventi. \\
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width = 0.6\textwidth]{actors.png}
   \caption[Modello ad attori]{Modello ad attori \cite{actors}}
@@ -181,7 +181,7 @@ Il linguaggio è particolarmente adatto per la scrittura di codice scalabile, ba
 Durante la compilazione, il codice Scala genera bytecode Java, che viene interpretato ed eseguito dalla \textit{Java Virtual Machine} (JVM).
 Ciò rende Scala completamente interoperabile con il codice scritto in Java o altri linguaggi che generano bytecode Java, offrendo un evidente vantaggio nel riutilizzo di librerie già esistenti. 
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width = 0.2\textwidth]{scala_logo.png}
   \caption[SCALA Logo]{Il logo del linguaggio SCALA \cite{scala}}
@@ -225,7 +225,7 @@ Questa visione di Hewitt è diventata ora una realtà con l'avvento del Cloud Co
 Adesso, procederemo all'analisi approfondita delle caratteristiche principali di Akka. 
 Esploreremo il livello di astrazione fornito per la programmazione concorrente, il meccanismo di comunicazione basato sul passaggio di messaggi, l'utilizzo di processi leggeri, il ciclo di vita degli attori, la capacità di auto-ripristino (self-healing), la trasparenza della localizzazione, il routing dei messaggi e l'implementazione del clustering per soddisfare i requisiti di scalabilità.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width = 0.2\textwidth]{akka_logo.png}
   \caption[Logo AKKA]{Il logo del toolkit AKKA \cite{akka}}
@@ -274,7 +274,7 @@ Tale aspetto è cruciale in un contesto di programmazione concorrente, in quanto
 Inoltre, è interessante notare come la scelta di un messaggio non bloccante contribuisca alla fluidità e alla dinamica del flusso di esecuzione complessivo.
 Questo approccio consente di evitare situazioni in cui la classe chiamante si bloccherebbe in attesa di una risposta sincrona, mantenendo invece la continuità delle operazioni in modo agile e responsivo.
 
-\subsubsection[Passaggio di messaggi]{Passaggio di messaggi}
+\subsubsection[Comunicazione]{La comunicazione tra Attori}
 Akka concepisce la definizione di un attore in modo simile a una struttura dell'object-oriented, ma si distingue notevolmente in quanto non espone alcun metodo o attributo direttamente.
 L'interazione con un attore avviene esclusivamente attraverso l'invio di messaggi, un paradigma di comunicazione event-driven implementato mediante il \textit{message passing}.
 Ogni attore è dotato di un proprio buffer denominato \textit{mail-box}, una sorta di casella di posta, dove i messaggi vengono accodati e successivamente estratti in modo sincrono e bloccante, seguendo l'ordine di ricezione (\textit{First-In-First-Out}).
@@ -289,10 +289,10 @@ Tale pratica è considerata una violazione dei principi fondamentali del modello
 Questa configurazione specifica del modello ad attori enfatizza la natura asincrona delle interazioni, incoraggiando un design che favorisca la modularità, la reattività e la scalabilità all'interno dei sistemi che adottano Akka.
 La comprensione approfondita di queste dinamiche consente di sfruttare al massimo i benefici offerti dal paradigma ad attori nella costruzione di applicazioni robuste e altamente performanti. 
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
-  \includegraphics[width = 0.5\textwidth]{akka_messages.png}
-  \caption[Componenti AKKA]{Diagramma che mostra i componenti interni di un Attore e come interagiscono tra di loro}
+  \includegraphics[width = 0.95\textwidth]{akka_messages.png}
+  \caption[Componenti AKKA]{Diagramma delle componenti interni di un Attore e come interagiscono tra di loro}
 \end{figure}
 
 Esempio di un invio di messaggio asincrono \textit{fire-and-forget}:
@@ -303,32 +303,11 @@ Esempio di un invio di messaggio asincrono \textit{fire-and-forget}:
 
 Invio messaggio sincrono \textit{request}/\textit{response}, con gestione attesa valore di ritorno mediante costrutto \textit{Future}:
 
-\begin{lstlisting}
-  //sync actor class
-  class HelloWorldSyncActor() extends Actor {
-
-    def receive = {
-
-    //ricezione messaggio
-    case Greet(name) =>
-
-      sender ! Greet("Hello " + name + ", Hello world!")
-  }
-}
-
-  //attivazione attore sincrono
-  val syncGreeter  = system.actorOf(HelloWorldSyncActor.props(), "syncGreeter")
-
-  implicit val timeout = Timeout(1 second)
-
-  //invio messaggio request/response
-  val future = syncGreeter ? Greet("Elon2")
-  val result = Await.result(future, timeout.duration)
-\end{lstlisting}
+\lstinputlisting[language=Scala, float=ht]{code/Future.java} 
 
 L'attore, in questa configurazione specifica, abbandona la pratica di stampare il messaggio a video, invece opta per restituirlo al chiamante.
 Nel corso di questa operazione, il chiamante si troverà in uno stato di blocco in attesa della risposta.
-Questo comportamento è dettato dall'impiego dell'operatore \textit{?} (\textit{ask}) anziché \textit{!} (\textit{tell}) per l'invio del messaggio. \\
+Questo comportamento è dettato dall'impiego dell'operatore "?" (\textit{ask}) anziché "!" (\textit{tell}) per l'invio del messaggio. \\
 È di rilievo esplorare più a fondo il concetto di \textit{ask pattern}.
 Questa scelta determina una variante nel paradigma di recapito del messaggio noto come \textit{at-most-once}.
 Tale paradigma offre la garanzia che la consegna del messaggio avvenga al massimo una sola volta, ma non fornisce alcuna assicurazione sull'effettiva avvenuta consegna. \\
@@ -356,13 +335,6 @@ Il percorso evolutivo di un attore è caratterizzato da tre differenti categorie
   Una volta in questo stato, i successivi messaggi indirizzati all'attore verranno instradati verso la mail-box di sistema denominata \textit{dead letters}.
   È rilevante notare che nello scenario di default, lo stop di un attore comporta la cessazione delle attività anche per tutti i suoi attori figli.
 \end{itemize}
-
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[width = 0.4\textwidth]{actor_lifecycle.png}
-  \caption[Ciclo di vita]{Il ciclo di vita di un attore nell'ecosistema AKKA}
-\end{figure}
-
 Esaminando attentamente ciascuna di queste fasi, emergono le dinamiche complesse e le considerazioni strategiche che permeano il ciclo di vita di un attore all'interno di un sistema basato su Akka.
 Questa prospettiva dettagliata fornisce una panoramica esaustiva delle diverse transizioni e delle opportunità per gestire eventuali problematiche, sottolineando l'elasticità e la robustezza insite nell'approccio ad attori implementato da Akka.
 
@@ -392,6 +364,12 @@ Ad esempio, in caso di insuccesso di un attore figlio, il supervisore può intra
 Questo paradigma, noto come \textit{let it crash}, si distingue per la scelta di consentire il fallimento dell'attore supervisionato anziché implementare complesse logiche di gestione delle eccezioni.
 In questo contesto, la gestione centralizzata del fallimento avviene nel supervisore, che applica un'azione in base alla strategia previamente definita.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.6\textwidth]{actor_top_tree.png}
+  \caption[Gerarichia degli Attori]{Albero delle gerarichia degli Attori}
+\end{figure}
+
 Le strategie di gestione dei fallimenti possono essere personalizzate per rispondere alle specifiche esigenze del sistema o selezionate tra quelle fornite dal toolkit:
 \begin{itemize}
   \item \textbf{Restart}: l'attore viene ricreato attraverso il proprio factory method, riprendendo immediatamente l'attività. Gli altri attori continuano a referenziare l'attore utilizzando un riferimento logico costante esternamente.
@@ -408,31 +386,7 @@ Qui definiamo un attore supervisore, \textit{HelloWorldSupervisorActor}, che sta
 Questa strategia è selezionata in base all'eccezione lanciata dal figlio, evidenziando la flessibilità e l'efficacia nella gestione delle situazioni di errore all'interno del contesto attoriale.
 Questo approccio riflette la sofisticata architettura di Akka, che permette una gestione dinamica e scalabile degli errori in scenari reali e complessi.
 
-\begin{lstlisting}
-  class HelloWorldSupervisorActor extends Actor {
-
-  // creazione attore figlio
-  val child = context.actorOf(Props(new HelloWorldActor), "greeter-actor")
-
-  // avvio supervisione
-  context.watch(child)
-  
-  // definizione strategia di supervisione
-  override def supervisorStrategy =
-    AllForOneStrategy() {
-      case StopException => Stop
-      case RestartException => Restart
-      case ResumeException => Resume
-      case _: Exception => Escalate
-    }
-  
-  // inoltro al figlio messaggio ricevuto
-  override def receive: Receive = {
-    case msg => child forward msg
-  }
-}
-
-\end{lstlisting}
+\lstinputlisting[language=Scala, float=ht]{code/Messages.java} 
 
 \subsubsection[Location transparency]{Location transparency}
 Il meccanismo di localizzazione degli attori in Akka si basa su un servizio di naming distribuito, un pilastro cruciale per l'architettura di sistemi attoriali che mirano alla scalabilità e alla distribuzione.
@@ -457,6 +411,12 @@ Questo componente consente l'applicazione di \textit{wildcard}, facilitando la l
 L'architettura di naming distribuito implementata in Akka costituisce un elemento chiave che offre un alto livello di astrazione.
 Ciò consente ai programmatori di concentrarsi sulla logica applicativa, mentre il sistema gestisce in modo efficiente e trasparente la complessità della distribuzione degli attori.
 Tale approccio fornisce una flessibilità e una scalabilità superiori nell'implementazione di sistemi complessi e distribuiti.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.6\textwidth]{actor-paths-overview.png}
+  \caption[Percorso degli attori]{Panoramica del percorso degli attori}
+\end{figure}
 
 \subsubsection[Routing, scalabilità e clustering]{Routing, scalabilità e clustering}
 Per assicurare la sostenibilità delle prestazioni di fronte alla crescente domanda, è essenziale adottare strategie di scalabilità nel sistema di attori.

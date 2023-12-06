@@ -1,24 +1,17 @@
-//actor object
-object HelloWorldActor{
+// Actor object
+object HelloWorldActor {
+  // Factory method per istanziare l'attore con un parametro name
+  def props(name: String): Props = Props(new HelloWorldActor(name))
 
-    //istanziazione attore tramite factory method props
-    def props(name:String):Props=Props(new HelloWorldActor())
-
-    //definizione messaggio
-    case class Greet(msg: String)
-
+  // Definizione del messaggio
+  case class Greet(name: String)
 }
 
-// actor class
-class HelloWorldActor()extends Actor {
-
-    def receive = {
-
-        //ricezione messaggio
-        case Greet(name) =>
-
-            println("Hello " + name)
-
-    }
-
+// Actor class
+class HelloWorldActor(name: String) extends Actor {
+  def receive: Receive = {
+    // Ricezione messaggio
+    case HelloWorldActor.Greet(_) =>
+      println(s"Hello, $name!")
+  }
 }
