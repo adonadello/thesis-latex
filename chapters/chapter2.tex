@@ -1,0 +1,308 @@
+La concezione di software predittivo sorge dall'impellente necessità di elaborare vasti volumi di dati entro tempi \textit{ragionevoli}, avvicinandosi al concetto di near real-time.
+In questo contesto, il periodo di attesa per l'ottenimento di risposte, generalmente nell'ordine di secondi, si colloca certamente al di sopra dei sistemi real-time, ma notevolmente al di sotto dei sistemi batch.
+La realizzazione di questo software implica la definizione e la sincronizzazione di tutti i suoi componenti mediante l'adozione del modello ad attori.
+Tale approccio coinvolge in modo sinergico framework esterni specializzati nel calcolo parallelo distribuito, nell'orchestrazione dei messaggi e nella gestione dello storage distribuito. \\
+L'architettura del software, in contrasto con i tradizionali sistemi batch, è improntata a un'efficienza temporale significativa, consentendo un'analisi e un apprendimento continuo su grandi quantità di dati.
+La synchronicità tra i componenti, ottenuta attraverso il modello ad attori, offre un livello di parallelismo e distribuzione delle responsabilità fondamentale per fronteggiare le sfide della gestione di grandi flussi informativi. \\
+La collaborazione con framework esterni specializzati nell'esecuzione di calcoli paralleli distribuiti consente di sfruttare al massimo la potenza computazionale disponibile, accelerando i processi di analisi e apprendimento del software.
+L'integrazione di meccanismi di brokering dei messaggi facilita una comunicazione fluida e efficiente tra i diversi componenti, garantendo coerenza e tempestività nell'elaborazione delle informazioni. \\
+Inoltre, il software si avvale di soluzioni di storage distribuito, contribuendo così alla gestione ottimizzata dei dati.
+Questi sistemi di storage distribuito consentono l'accesso rapido e affidabile ai dati necessari per l'analisi, garantendo al contempo la resilienza e la ridondanza necessarie per affrontare eventuali guasti o perdite di dati.
+
+\section[Descrizione generale]{Una descrizione generale}
+In questo contesto, il software si configura come un sostegno fondamentale per l'implementazione di modelli di Machine Learning e Advanced Analytics, fornendo un layer di astrazione composto da un insieme di classi astratte che generalizzano comportamenti e operazioni.
+Questo strato di astrazione facilita l'interazione con vari framework di Big Data impiegati per la realizzazione di modelli di apprendimento automatico.
+Il software segue il flusso dei dati dalla fase di generazione iniziale attraverso l'elaborazione fino al salvataggio, delineando una struttura applicativa ben definita. \\
+All'interno del software, emergono tre macro layer applicativi di riferimento:
+\begin{itemize}
+    \item Il primo strato si occupa della gestione e trasmissione dei dati di input.
+    \item Il secondo gestisce il routing delle richieste.
+    \item Il terzo costituisce il nucleo di analisi, caratterizzato dalle attività di apprendimento automatico e analisi avanzata.
+\end{itemize}
+
+Un elemento distintivo del software è l'approccio di disaccoppiamento del layer di analisi dal resto del sistema.
+Questo disaccoppiamento si manifesta attraverso due job indipendenti per la creazione e l'addestramento di modelli di Machine Learning e per l'analisi avanzata dei dati.
+Tali job vengono eseguiti periodicamente in modo autonomo rispetto alle altre componenti del sistema.
+Alla conclusione di ogni iterazione, i risultati generati sono immediatamente trasmessi alle componenti interessate, pronte per l'utilizzo in sostituzione di quelli precedentemente memorizzati nei rispettivi buffer di memoria.
+
+La componente dedicata al Machine Learning assume il compito di generare modelli di classificazione, basandosi su dati storici presenti nel file system distribuito e su dati in tempo reale elaborati dalla piattaforma.
+La flessibilità del software come sistema adattivo è evidente nella sua capacità di arricchire continuamente il training set con ogni messaggio prodotto e analizzato.
+Al termine di ogni generazione, viene selezionato, tra gli algoritmi classificazione utilizzati, quello che meglio si adatta e dimostra maggiore accuratezza rispetto ai dati disponibili nello stato attuale del sistema.
+La dinamicità di questo processo contribuisce a mantenere la pipeline di intelligenza artificiale adattata e ottimizzata in risposta alle variazioni nei dati e alle esigenze dell'applicazione.
+
+\section[Architettura]{L'architettura del software}
+Il software predittivo è concepito e sviluppato implementando il modello ad attori, in cui ogni componente applicativa è realizzato seguendo il paradigma dell'attore. \\
+La decisione di utilizzare il linguaggio di programmazione Scala si basa sulla sua intrinseca adattabilità a contesti in cui la scalabilità è un requisito cruciale.
+Scala offre un equilibrio unico tra conciseness e potenza, consentendo lo sviluppo di codice efficiente e manutenibile.
+La sua interoperabilità con Java fornisce inoltre un ampio accesso a librerie e framework consolidati nel mondo dello sviluppo software. \\
+Il software predittivo, attraverso la sua implementazione basata su attori, promuove la separazione delle responsabilità e la modularità dei componenti.
+Ogni attore rappresenta un'unità autonoma di esecuzione, contribuendo a una gestione più agevole dei processi distribuiti.
+La comunicazione tra attori avviene in modo asincrono, migliorando la reattività e la flessibilità del sistema nell'adattarsi alle varie esigenze di previsione. \\
+La scalabilità, quale requisito fondamentale del software predittivo, diventa una caratteristica distintiva grazie alla sua implementazione basata su attori e al linguaggio Scala.
+La capacità di gestire carichi di lavoro crescenti o variabili è intrinseca nel modello ad attori, che permette di aggiungere o rimuovere attori in risposta alla dinamica del sistema.
+
+\subsection[Componenti]{Le componenti del software}
+La concezione del software predittivo si fonda su una pipeline strutturata, che incorpora diverse componenti essenziali per garantire un flusso efficiente e reattivo nel processo predittivo:
+
+\subsubsection[Producer]{Producer} 
+Il Prodcuer è un attore specificamente designato a monitorare in maniera continua il dataset raw generato dai dispositivi o sistemi di origine.
+Questo dataset costituisce l'input cruciale per l'intera pipeline predittiva, alimentando il processo di analisi e previsione.
+Il ruolo del Producer è di vitale importanza, poiché, in modo costante, analizza il dataset raw alla ricerca di variazioni nei file in esso contenuti. \\
+Ogni volta che si verifica una modifica, il Producer riceve una notifica di cambiamento e prontamente reagisce accodando un nuovo messaggio di input verso il message broker.
+Questo meccanismo di notifica e risposta assicura che il software predittivo sia sempre allineato con l'evoluzione dinamica del dataset raw, consentendo un processo di predizione tempestivo e accurato. \\
+L'integrazione del Producer nella pipeline del software predittivo sottolinea la necessità di una sorveglianza continua e di un'adeguata gestione degli input.
+Questo attore svolge un ruolo cruciale nell'assicurare la coerenza e l'aggiornamento costante dei dati utilizzati per le analisi predittive.
+La sua capacità di rilevare rapidamente le variazioni e di reagire prontamente garantisce che il flusso di input sia sempre allineato con le dinamiche in tempo reale dell'ambiente di rilevamento.
+
+\subsubsection[Consumer]{Consumer}
+Il Consumer all'interno della struttura operativa è l'incaricato di gestire il processo di estrazione e analisi dei nuovi messaggi di input pervenuti attraverso il message broker.
+La sua versatilità si manifesta nella capacità di adattarsi a diverse tipologie di messaggi, ognuna specifica per il contesto di studio.
+La sua funzione principale consiste nell'interpretare il tipo di messaggio ricevuto e intraprendere azioni mirate in base alla sua natura. \\
+Una volta che il Consumer ha estratto un nuovo messaggio di input dal message broker, si impegna in un'analisi approfondita.
+La sua capacità di discernere la tipologia di messaggio diventa cruciale, poiché il percorso successivo è determinato dalla natura specifica del messaggio.
+In base al contesto di studio, il Consumer è programmato per instradare il messaggio verso il predittore nel caso di richieste di previsione.
+Se invece il messaggio è una richiesta di recupero di dati statistici, il Consumer lo instraderà verso il feeder.
+Nel caso in cui il messaggio rappresenti un output raw, il Consumer provvederà a salvare il dato nel file system distribuito, arricchendo ulteriormente il training set del sistema. \\
+La flessibilità del Consumer nell'adattarsi alle diverse tipologie di input e nell'effettuare le scelte di instradamento in base al contesto dimostra la sua centralità all'interno del flusso operativo del sistema.
+La sua azione di istruzione dei messaggi contribuisce in modo significativo alla definizione del percorso e alla destinazione finale dei dati, fornendo così un'organizzazione strutturata e coerente alle informazioni elaborate.
+
+\subsubsection[Trainer]{Trainer}
+Il Trainer si configura come l'attore principale incaricato della creazione e dell'addestramento dei modelli di Machine Learning.
+La sua esecuzione avviene in maniera periodica, intervallata da specifici intervalli temporali, durante i quali recupera sia i dati storici archiviati, sia quelli raccolti dalla piattaforma nel corso delle sue attività operative.
+La sua azione di recupero dati si estende sia al training set rigenerato ad ogni iterazione, che costituisce la base essenziale per il processo di apprendimento automatico, sia ai nuovi dati provenienti dai test set. \\
+La fase di addestramento è un momento critico per il Trainer, che sfrutta i dati acquisiti per generare diversi modelli di Machine Learning.
+Questi modelli sono poi applicati a nuovi test set per valutare le loro performance.
+La selezione del modello ottimale avviene in base a specifiche metriche distinte, delineate in funzione delle esigenze del contesto applicativo.
+Nel caso di modelli di regressione, ad esempio, l'efficacia potrebbe essere valutata mediante metriche come l'errore quadratico medio, mentre per i modelli di classificazione potrebbero essere considerati indicatori come precisione e recall. \\
+La fondamentale caratteristica del Trainer risiede nella sua capacità di adattarsi e migliorarsi continuamente.
+La rigenerazione del training set ad ogni iterazione consente al Trainer di integrare nuovi dati e di affinare progressivamente i modelli di Machine Learning, garantendo un apprendimento continuo e dinamico.
+La diversificazione dei modelli generati e la selezione del migliore costituiscono un passo cruciale nell'evoluzione del sistema, permettendo di mantenere elevata l'accuratezza delle previsioni nel tempo. \\
+La fase conclusiva dell'elaborazione del Trainer prevede la trasmissione del modello ottimale al rispettivo predittore.
+Questo collegamento diretto garantisce che il modello addestrato sia prontamente utilizzato per effettuare previsioni nel contesto operativo del sistema predittivo, contribuendo a mantenere il sistema allineato con l'andamento dinamico dei dati. \\
+
+\subsubsection[Analyzer]{Analyzer}
+L'Analyzer si configura come l'attore preposto alla generazione di dati statistici relativi al dataset storico e alle informazioni acquisite in tempo reale dalla piattaforma.
+Il suo processo operativo è caratterizzato da una periodica esecuzione, intervallata da specifici intervalli temporali, durante i quali esegue un'analisi approfondita dei dati a disposizione.
+Una volta completata l'analisi, l'Analyzer trasmette i risultati ottenuti al feeder, contribuendo così alla raccolta di informazioni dettagliate e significative per il sistema nel suo complesso. \\
+La responsabilità chiave dell'Analyzer consiste nella generazione di dati statistici accurati e informativi.
+Esso svolge questa funzione sia sul dataset storico, costituito dai dati archiviati nel tempo, sia sui dati acquisiti in tempo reale, provenienti dalla continua attività della piattaforma.
+Questo approccio integrato garantisce un'analisi completa e dinamica, incorporando sia le tendenze passate che gli sviluppi immediati, offrendo così una visione completa dell'ambiente operativo. \\
+L'esecuzione periodica dell'Analyzer rafforza la sua capacità di mantenere aggiornati i dati statistici, consentendo una comprensione sempre attuale e precisa delle dinamiche di sistema.
+Ogni intervallo di esecuzione si traduce in un nuovo set di dati statistici, permettendo al sistema di adattarsi in tempo reale alle variazioni nell'ambiente e di rispondere con prontezza alle nuove sfide o opportunità che possono emergere. \\
+L'invio regolare dei risultati all'interno del Feeder contribuisce alla coerenza e all'integrità del flusso informativo all'interno del sistema predittivo.
+
+\subsubsection[Predictor]{Predictor}
+Il Predictor assume il ruolo fondamentale di ricevere richieste di predizione e di soddisfarle attraverso l'impiego di modelli generati precedentemente dal Trainer.
+La sua operatività si caratterizza per la gestione accurata delle richieste di previsione provenienti da altre componenti della pipeline, fungendo da ponte essenziale tra la fase di addestramento dei modelli e l'applicazione pratica delle previsioni nel contesto operativo. \\
+La funzione primaria del Predictor è di mantenere costantemente in memoria una copia del modello attualmente utilizzato.
+Questa pratica garantisce una risposta tempestiva e senza ritardi alle richieste di predizione, evitando la necessità di ricaricare il modello ad ogni richiesta.
+Parallelamente, il Predictor si impegna a sostituire la copia in memoria con un nuovo modello appena ricevuto dal Trainer.
+Questo processo di aggiornamento regolare consente al sistema di adattarsi dinamicamente alle modifiche nei dati e nell'ambiente operativo, migliorando costantemente la precisione delle previsioni. \\
+La memoria persistente del modello nel Predictor riflette la sua capacità di mantenere una conoscenza consolidata dei modelli di Machine Learning, facilitando un accesso rapido e efficiente ai dati di apprendimento.
+Questo approccio consente di evitare la necessità di ricaricare il modello ad ogni richiesta di predizione, riducendo il tempo di risposta e migliorando l'efficienza complessiva del sistema predittivo. \\
+La sincronizzazione tra il Predictor e il Trainer è un elemento chiave nel garantire la coerenza e l'affidabilità delle previsioni.
+La prontezza nel sostituire il modello in uso con la versione più recente fornita dal Trainer consente al sistema di adottare immediatamente nuovi pattern e tendenze emerse dai dati più recenti, contribuendo a mantenere l'efficacia delle previsioni nel tempo.
+
+\subsubsection[Feeder]{Feeder}
+Il Feeder assume il ruolo chiave di fornire dati statistici in risposta a richieste specifiche.
+Parallelamente al Predictor, il Feeder si occupa di gestire il flusso di dati statistici generati dall'Analyzer, svolgendo un ruolo essenziale nella distribuzione coerente e tempestiva delle informazioni attraverso il sistema.
+La sua funzione principale è quella di mantenere in memoria una copia del dataset statistico ottenuto dall'Analyzer, una riserva di dati chiave che viene sostituita con la versione più recente ogni volta che è disponibile. \\
+La gestione oculata dei dati statistici da parte del Feeder riveste importanza cruciale nel garantire che le richieste specifiche provenienti da altri attori della pipeline siano soddisfatte in modo efficiente.
+Il Feeder funge da intermediario affidabile, consentendo agli attori successivi, come il Predictor, di accedere rapidamente a dati statistici rilevanti senza dover eseguire nuovamente analisi complesse sull'intero dataset. \\
+Parallelamente al processo di sostituzione del dataset statistico, il Feeder si impegna anche a rispondere prontamente alle richieste specifiche provenienti dal resto del sistema.
+La sua capacità di fornire dati statistici dettagliati, senza la necessità di ricorrere a analisi complesse ad ogni richiesta, migliora significativamente l'efficienza del sistema nel compiere previsioni e decisioni informate. \\
+La sincronizzazione tra il Feeder e il Predictor, entrambi dotati di una copia aggiornata del dataset statistico, consente una coerenza nell'accesso ai dati e contribuisce a mantenere l'accuratezza delle previsioni nel tempo.
+La prontezza nel sostituire il dataset memorizzato con la versione più recente assicura che il sistema operi costantemente con informazioni aggiornate, migliorando la sua capacità di adattamento alle variazioni nell'ambiente operativo.
+
+\section[Pipeline]{La pipeline}
+Nella fase di \textit{bootstrap}, si procede alla creazione e all'avvio degli attori fondamentali, quali il Producer, il Consumer, il Trainer e l'Analyzer, stabilendo così le basi operative del sistema predittivo.
+
+Durante l'avvio, il Consumer, tramite \textit{ActorRef}, acquisisce il riferimento logico al Predictor e al Feeder, istituendo una connessione essenziale per le future richieste di predizione.
+L'operatività del Trainer si svolge a intervalli regolari, e il suo compito principale consiste nella costruzione dei modelli di Machine Learning.
+In questo processo, il Trainer delega ai componenti specifici del caso di studio tutto ciò che non può essere generalizzato, concentrandosi principalmente sulla fase di \textit{feature engineering}.
+Attraverso l'accesso a HDFS, il Trainer recupera sia i dati storici sia quelli acquisiti in tempo reale, dando vita a dataset di training e di test in modo casuale.
+La costruzione del modello avviene utilizzando i dati di training, mentre la fase di verifica viene eseguita sui dati di test.
+
+L'approccio periodico del Trainer nel generare modelli riflette la sua capacità di adattarsi e migliorarsi continuamente.
+La regolarità degli intervalli di esecuzione permette al Trainer di integrare nuovi dati in modo sistematico e di affinare costantemente i modelli, assicurando un apprendimento dinamico e aggiornato rispetto alle evoluzioni dell'ambiente. \\
+L'interazione del Consumer con il Predictor e il Feeder all'inizio del processo sottolinea la sinergia necessaria per il flusso operativo del sistema.
+Questa connessione precoce tra attori assicura che le richieste future siano gestite in modo fluido e tempestivo, garantendo una comunicazione efficiente tra le diverse componenti della pipeline. 
+
+Alla conclusione della fase di addestramento del Trainer, si avvia una sequenza di operazioni essenziali eseguite dall'Analyzer, elemento fondamentale nella pipeline del sistema predittivo.
+Inizialmente, l'Analyzer si impegna nel calcolare una serie di metriche specifiche, che variano in base alla tipologia di algoritmo adottato, sia esso di tipo regressione o classificazione.
+Questo processo di valutazione mira a determinare l'accuratezza dei modelli generati, fornendo una base critica per la selezione del modello più preciso.
+Una volta identificato il modello ottimale, l'Analyzer procede a trasmetterlo al Predictor per l'utilizzo pratico nelle future richieste di predizione. \\
+Parallelamente, l'Analyzer svolge un ruolo attivo nella conservazione e nell'organizzazione dei risultati ottenuti.
+Salvando su file system i dettagli delle misure effettuate, l'Analyzer crea un registro dettagliato delle prestazioni dei modelli, offrendo una risorsa di riferimento preziosa per valutazioni future e analisi retrospettive.
+In aggiunta, genera strutture dati cruciali per l'analisi avanzata: una matrice di correlazione per i modelli di regressione e una matrice di confusione per quelli di classificazione.
+Queste strutture forniscono un'ulteriore profondità di comprensione sul comportamento dei modelli, permettendo una visione dettagliata delle relazioni tra le variabili o delle prestazioni nel caso di classificazione. \\
+L'esecuzione periodica dell'Analyzer, intervallata a scadenze regolari, costituisce un aspetto significativo della sua operatività. \\
+Durante ogni esecuzione, l'Analyzer calcola una serie di statistiche specifiche definite all'interno delle componenti specializzate per ciascun caso di studio.
+Questo approccio mirato consente all'Analyzer di adattarsi alle esigenze specifiche di ogni contesto applicativo, contribuendo a garantire che le statistiche rilevanti vengano catturate e analizzate con precisione. \\
+L'efficace recupero di dati da HDFS da parte dell'Analyzer, unito alla sua capacità di notificare tempestivamente i risultati al Feeder, sottolinea l'integrazione sinergica di questa componente nella pipeline complessiva del sistema predittivo.
+La trasmissione pronta delle informazioni al Feeder alimenta la coerenza e l'efficienza del flusso operativo, consentendo al sistema di rimanere agilmente rispondere alle dinamiche mutevoli dell'ambiente. 
+
+Il Producer viene attivato in risposta a qualsiasi variazione rilevata nel dataset di input da esso monitorato.
+A ogni modifica del dataset, esso prende l'iniziativa di trasmettere i nuovi dati al topic Kafka.
+Questo processo garantisce una gestione dinamica e reattiva del flusso di dati, garantendo che qualsiasi cambiamento nell'input venga prontamente catturato e trasmesso agli altri componenti della pipeline. \\
+Il Consumer, a sua volta, ha il compito di estrarre i dati appena trasmessi dal topic Kafka.
+La sua operatività è basata sulla capacità di analizzare il tipo di input ricevuto e di prendere decisioni immediate in merito alla successiva instradazione del messaggio.
+In base alle caratteristiche dell'input, il Consumer decide se indirizzare il messaggio al componente Predictor, per la predizione utilizzando il modello più recente generato dal Trainer, o se inviarlo al Feeder, per ottenere il dataset statistico più recente dal Analyzer. \\
+Il Predictor utilizza il modello più recente generato dal Trainer per eseguire la previsione.
+La risposta predittiva viene poi restituita al Consumer, completando così il ciclo operativo.
+
+Questo approccio assicura che il sistema si avvalga costantemente delle informazioni più aggiornate per effettuare previsioni accurate e tempestive. \\
+Dall'altro lato, il Feeder svolge un ruolo complementare fornendo al Consumer il dataset statistico più recente generato dall'Analyzer.
+Questa sinergia tra il componente che effettua le previsioni e quello che fornisce dati statistici attuali consente al sistema di operare in modo coerente e integrato. \\
+Un passaggio fondamentale nel processo operativo è la memorizzazione su file system locale dei risultati ottenuti, compito affidato al Consumer.
+Questa pratica contribuisce a mantenere un registro storico delle operazioni, facilitando future analisi, monitoraggi e audit delle attività svolte dal sistema predittivo.
+
+\section[Scalabilità]{La scalabilità del software}
+Il software predittivo è progettato per ereditare e sfruttare le caratteristiche di scalabilità dei framework utilizzati, permettendo un adattamento dinamico alle esigenze operative senza richiedere modifiche dirette al codice sorgente dell'applicativo.
+Questa flessibilità si dimostra fondamentale nell'affrontare situazioni in cui una specifica componente potrebbe diventare il collo di bottiglia dell'intera soluzione. \\
+In dettaglio: 
+\begin{itemize}
+    \item di fronte a variazioni nel volume di lavoro trattato, il software predittivo offre diverse opzioni di configurazione per ottimizzare le performance. Per gestire aspetti legati allo streaming e all'incremento di \textit{throughput} dei messaggi, si può intervenire aumentando il parallelismo in \textit{Akka Streams}. Questo approccio garantisce una gestione efficiente del flusso di dati in tempo reale, senza compromettere l'integrità del sistema.
+    \item Per affrontare aspetti legati al calcolo parallelo distribuito e all'aumento del volume di dati storici da trattare, l'espansione dei nodi nel cluster \textit{Spark} diventa una strategia chiave. Questo consentirà l'utilizzo di un numero maggiore di \textit{worker} per elaborare in parallelo complessi task computazionali. Questa espansione, tuttavia, deve essere accompagnata da un adeguato aumento dei nodi nel cluster di HDFS. Questa sinergia di espansione assicura un incremento efficiente del parallelismo sia durante le fasi di calcolo che di lettura del dataset di input, rispettando il principio di località del dato.
+    \item Per quanto riguarda gli aspetti legati all'intermediazione, il software predittivo offre la possibilità di reagire prontamente all'aumento del numero di messaggi nel sistema mediante l'incremento delle partizioni del topic in Kafka. Questa azione permette di distribuire in modo equo il carico di lavoro tra i consumatori, garantendo che il sistema sia in grado di gestire senza intoppi flussi di dati più consistenti.
+\end{itemize}
+Il software predittivo dimostra di essere una soluzione altamente adattabile e scalabile, in grado di gestire dinamicamente le variazioni nel volume di lavoro.
+La sua capacità di sfruttare al massimo le caratteristiche di scalabilità dei framework sottostanti offre una flessibilità operativa fondamentale per affrontare con successo le sfide in evoluzione nell'ambito del trattamento e dell'analisi di dati complessi.
+
+\section[Software utilizzati]{I software utilizzati}
+La scelta del linguaggio di programmazione Scala per l'implementazione del software predittivo è stata guidata da una serie di considerazioni strategiche.
+In particolare, la coesione tra Scala e Akka, il framework fondamentale su cui si basa il sistema predittivo, ha giocato un ruolo chiave nella decisione.
+La forte integrazione tra Scala e Akka fornisce una sinergia tra il linguaggio di programmazione e il toolkit, contribuendo a una coerenza e una fluidità nell'implementazione dei comportamenti degli attori e nello scambio di messaggi tra di essi.
+Inoltre, l'adozione da parte di Scala di principi e costrutti della programmazione funzionale si è rivelata cruciale, facilitando l'implementazione di soluzioni parallele e distribuite.
+
+La pipeline applicativa del software predittivo è costruita sfruttando in modo sinergico vari framework di rilievo: 
+\begin{itemize}
+    \item \textit{Akka} rappresenta il cuore della implementazione, consentendo la definizione precisa dei comportamenti degli attori e facilitando lo scambio di messaggi tra di essi. 
+    \item \textit{Apache Spark}, nel modulo \textit{MLlib}, assume un ruolo chiave per la costruzione di modelli di Machine Learning e analisi avanzata, operando in un contesto di calcolo parallelo distribuito attraverso il paradigma \textit{MapReduce}.
+    \item La scelta di \textit{Apache Kafka} si rivela strategica per la gestione asincrona e non bloccante dei dati, sia in fase di produzione che di consumo, tramite l'uso di broker e la gestione di topic.
+    \item Il modulo \textit{Akka Streams} viene impiegato per lo streaming di messaggi da e verso il topic, garantendo un flusso continuo e reattivo.
+    \item L'integrazione con \textit{Apache HDFS}, modulo di \textit{Hadoop} per lo storage distribuito di file, sottolinea la robustezza e la scalabilità del sistema predittivo. HDFS è utilizzato per il salvataggio permanente dei dati raw, compresi quelli storici e quelli trasmessi dal produttore.
+\end{itemize}
+La scelta di Scala come linguaggio di programmazione e l'integrazione sinergica con framework potenti come \textit{Akka}, \textit{Apache Spark}, \textit{Apache Kafka} e \textit{Apache HDFS} contribuiscono alla creazione di un sistema predittivo avanzato, flessibile e scalabile.
+La combinazione di questi elementi consente al software predittivo di affrontare con successo le sfide delle soluzioni parallele, distribuite e di streaming, garantendo un'implementazione robusta e ad alte prestazioni.
+
+\section[Implementazione]{L'implementazione}
+Dal punto di vista progettuale e applicativo, l'intera piattaforma è stata sviluppata adottando il pattern di progettazione \textit{Template Method}, conforme ai principi definiti nel libro "\textit{Design Patterns: Elements of Reusable Object-Oriented Software}" \cite{designPatterns}. \\
+Il Template Method rappresenta un pattern comportamentale di tipo object-oriented, il quale si basa sulla definizione e implementazione di un algoritmo all'interno di una classe astratta.
+Questo algoritmo, essendo parte di una classe astratta, richiede che le classi specializzate che la estendono forniscono l'implementazione di una serie di metodi specifici, per i quali non è stato possibile stabilire comportamenti generalizzati. \\
+Il diagramma delle classi associato al pattern Template Method rappresenta chiaramente l'organizzazione gerarchica delle classi coinvolte.
+La classe astratta contiene il Template Method, che è l'algoritmo generale, mentre i metodi specifici, necessari per la corretta esecuzione dell'algoritmo, sono implementati nelle classi derivate. \\
+Adottare il pattern Template Method implica la necessità di estendere le classi astratte predefinite per costruire una \textit{filiera} applicativa specifica per ogni caso di studio.
+Questo approccio consente una notevole flessibilità, in quanto ogni filiera può essere adattata e specializzata secondo i requisiti specifici di ciascun contesto applicativo. 
+
+La struttura gerarchica di classi astratte, Template Method e metodi specializzati, consente una separazione chiara delle responsabilità e favorisce la coerenza nell'implementazione delle filiere applicative.
+L'invocazione dei metodi specifici durante l'esecuzione del Template Method sottolinea l'interdipendenza di tali elementi e la necessità di un contributo concreto da parte delle classi specializzate per garantire il corretto funzionamento dell'algoritmo. \\
+L'adozione del pattern Template Method rappresenta una scelta progettuale significativa, conferendo una struttura organizzativa chiara e scalabile.
+
+\begin{itemize}
+    \item \textit{\textbf{AbstractBaseActor}} costituisce il fondamento di tutti gli attori nel contesto del software, fornendo un insieme di funzionalità cruciali per il corretto funzionamento del sistema. \\
+    Tra le sue caratteristiche salienti, si annoverano la capacità di tracciare l'esecuzione, la gestione delle operazioni di lettura/scrittura su file system locale e la condivisione di costanti comuni a tutti gli attori.
+    Un aspetto di rilevante importanza è la strategia adottata per minimizzare le latenze derivate dalla ripetuta creazione di sessioni.
+    In particolare, \textit{AbstractBaseActor} implementa una logica intelligente: in fase di prima invocazione, inizializza il contesto \textit{Spark}, se necessario, e crea una nuova sessione. \\
+    Tuttavia, al termine dell'elaborazione, anziché distruggere la sessione, la conserva nella memoria dell'attore utilizzatore.
+    Questa strategia mira a ottimizzare le prestazioni, evitando la ricreazione costante di sessioni e sfruttando la persistenza delle informazioni necessarie tra le diverse chiamate.
+    
+    L'implementazione di tracciamento delle operazioni eseguite da \textit{AbstractBaseActor} rappresenta un elemento chiave per la comprensione e il monitoraggio delle attività svolte dagli attori nel contesto del software predittivo.
+    Questo tracciamento non solo facilita la diagnosi di eventuali problemi durante l'esecuzione, ma contribuisce anche a una migliore comprensione del flusso operativo complessivo del sistema. \\
+    La gestione delle operazioni di lettura/scrittura su file system locale rappresenta un'ulteriore funzionalità fornita dalla classe.
+    Questa capacità è fondamentale per la manipolazione di dati locali, contribuendo alla flessibilità del sistema e alla sua capacità di interagire con le risorse di archiviazione disponibili. 
+
+    L'adozione della strategia di mantenimento della sessione nella memoria dell'attore utilizzatore rappresenta un'ottimizzazione intelligente, contribuendo a ridurre il carico computazionale complessivo e migliorare le prestazioni del sistema predittivo.
+    La riutilizzazione della sessione alla successiva invocazione evidenzia l'attenzione alla gestione efficiente delle risorse, un aspetto critico in ambienti computazionali complessi.
+    \item \textit{\textbf{AbstractTrainerActor}} emerge come una fondamentale classe astratta all'interno del contesto del software predittivo, destinata ad essere estesa per i componenti dedicati all'addestramento. \\ 
+    La sua implementazione pone l'accento sulla definizione e gestione del contesto \textit{Spark}, avviando una nuova sessione per garantire un ambiente di calcolo efficiente e isolato.
+    Questa classe astratta assume un ruolo chiave nell'orchestrazione delle attività di addestramento, gestendo messaggi di avvio e termine delle operazioni. 
+
+    Una delle funzionalità principali di \textit{AbstractTrainerActor} è la gestione dell'inizializzazione del contesto \textit{Spark} e l'avvio di una nuova sessione.
+    Questo aspetto è critico per garantire che l'ambiente di calcolo sia configurato correttamente e pronto per eseguire le operazioni di addestramento in modo ottimale.
+    La creazione di una nuova sessione contribuisce inoltre a mantenere la separazione tra le diverse attività di addestramento, evitando interferenze indesiderate. 
+
+    L'interazione con il componente specializzato nel training è facilitata attraverso l'invocazione della costruzione del modello nel componente Trainer.
+    Questa operazione è fondamentale per l'apprendimento del modello stesso, e l'\textit{AbstractTrainerActor} svolge un ruolo di coordinamento, garantendo che il processo di addestramento avvenga in modo fluido e conforme agli standard definiti. \\
+    Al termine dell'apprendimento, la classe astratta assume la responsabilità di trasferire al Predictor il modello più accurato tra quelli generati durante l'addestramento.
+    Questa decisione, basata su metriche specifiche di accuratezza, mira a garantire che il sistema predittivo utilizzi il modello più performante per le successive predizioni.
+    Questo processo di selezione e trasferimento di modelli rappresenta una strategia intelligente per ottimizzare le prestazioni del Predictor.
+    \item \textit{\textbf{AbstractClassificationTrainerActor}} si configura come un elemento fondamentale nel panorama del software predittivo, rappresentando una classe astratta destinata all'estensione per i componenti che si specializzano nell'addestramento di casi di studio specifici di \textit{classificazione}. \\
+    Questa classe astratta si distingue per la sua implementazione avanzata, che va oltre la semplice costruzione del modello, introducendo una valutazione dettagliata delle performance del modello stesso. 
+
+    Una delle caratteristiche chiave di \textit{AbstractClassificationTrainerActor} è la sua abilità nell'eseguire una valutazione del modello mediante la misurazione dell'\textit{accuracy}.
+    Questo parametro, che rappresenta il rapporto tra le predizioni corrette e il numero totale di input, fornisce una misura robusta dell'efficacia del modello nella classificazione dei dati di input.
+    Introdurre questa valutazione all'interno della fase di addestramento evidenzia un approccio proattivo alla verifica delle prestazioni del modello già durante la sua creazione. 
+
+    Al termine dell'elaborazione, l'\textit{AbstractClassificationTrainerActor} va oltre la semplice valutazione dell'accuracy e genera una \textit{matrice di confusione}.
+    Questo strumento analitico offre una visione dettagliata delle attribuzioni delle classi, rilevando i livelli di confusione che possono emergere durante il processo di classificazione.
+    La matrice di confusione costituisce un elemento cruciale per identificare le aree in cui il modello può presentare difficoltà o in cui potrebbe essere necessario un ulteriore raffinamento.
+
+    \item \textit{\textbf{AbstractPredictorActor}} riveste un ruolo centrale nel contesto del software predittivo, incarnando una classe astratta progettata per l'estensione da parte dei componenti dedicati al Predictor in specifici casi di studio. \\
+    La sua implementazione avanzata si distingue per la gestione attenta delle operazioni di predizione, fornendo un livello di astrazione che facilita l'integrazione di modelli specifici per ciascun contesto di utilizzo.
+
+    Una delle caratteristiche chiave di \textit{AbstractPredictorActor} è la sua capacità di avviare una sessione di \textit{Spark} ad hoc dedicata alle operazioni di predizione.
+    Questa scelta progettuale mira a garantire che le risorse di calcolo siano ottimizzate per le esigenze specifiche delle predizioni, evitando sovraccarichi indesiderati.
+    L'inizializzazione di una sessione dedicata dimostra un approccio all'avanguardia alla gestione delle risorse e all'ottimizzazione delle prestazioni durante le fasi di predizione. 
+
+    La classe astratta è altresì specializzata nella gestione dei messaggi di richiesta di predizione e delle rispettive risposte.
+    Questa funzionalità la rende il fulcro delle operazioni di predizione nel contesto del sistema predittivo, fungendo da intermediario affidabile tra il componente specializzato e gli attori che richiedono previsioni.
+    L'\textit{AbstractPredictorActor} si configura quindi come un componente chiave per l'orchestrazione delle attività di predizione, garantendo una comunicazione efficiente e una risposta tempestiva alle richieste. 
+
+    Durante l'esecuzione delle predizioni, l'\textit{AbstractPredictorActor} invoca il componente specializzato, passando il modello da utilizzare.
+    Questa interazione fluida dimostra un approccio modulare e flessibile nell'implementazione di modelli specifici per ciascun caso di studio.
+    La capacità di personalizzare il modello in base alle richieste specifiche evidenzia la versatilità di questa classe astratta nel gestire una vasta gamma di scenari predittivi.
+    \item \textit{\textbf{AbstractConsumerActor}} rappresenta un cardine nell'ambito del contesto del software predittivo, assumendo la forma di una classe astratta destinata a essere estesa dai componenti specializzati nel consumo dei dati provenienti da dispositivi e sistemi sorgenti. \\
+    La sua implementazione avanzata sottolinea un approccio flessibile e modulare, consentendo una gestione agnostica del tipo di dati e una facile estensione per soddisfare le esigenze specifiche di ciascun caso di studio.
+
+    Una delle caratteristiche distintive di \textit{AbstractConsumerActor} è la sua abilità di avviare una sessione di lettura da un topic \textit{Kafka} dedicato al caso di studio in questione.
+    Questa strategia mira a garantire un accesso ottimizzato ai dati provenienti dai dispositivi e sistemi sorgenti, assicurando che la lettura avvenga in modo efficace e in conformità con le specifiche del contesto di utilizzo.
+    L'inizializzazione di una sessione dedicata riflette un approccio consapevole alle esigenze di lettura dei dati da fonti esterne. 
+
+    Nel corso delle operazioni, l'\textit{AbstractConsumerActor} riceve messaggi dal topic \textit{Kafka} e si distingue per l'abilità di eseguire il reindirizzamento della richiesta verso il componente appropriato.
+    Questa capacità di routing dinamico garantisce che i dati siano inviati al componente corretto in base alle necessità specifiche del caso di studio, contribuendo così a garantire una gestione efficiente e mirata delle informazioni. 
+
+    Un aspetto cruciale della funzionalità di \textit{AbstractConsumerActor} è la gestione dei dati in ingresso.
+    La classe astratta è progettata per salvare su file system distribuito i dati raw di input, preservandoli in una forma non elaborata per ulteriori analisi o rielaborazioni.
+    Allo stesso tempo, implementa una logica di salvataggio su file system locale per i risultati della predizione ottenuti mediante l'invocazione del Predictor, contribuendo a costruire un archivio locale dei risultati ottenuti nel contesto delle operazioni di predizione.\\
+    Parallelamente, l'\textit{AbstractConsumerActor} si distingue per la capacità di salvare il dataset statistico ottenuto invocando il Feeder.
+    Questa operazione sottolinea l'importanza della raccolta e della conservazione dei dati statistici generati durante l'analisi dei risultati delle predizioni, alimentando così il processo di apprendimento continuo del sistema predittivo.
+    \item \textit{\textbf{AbstractProducerActor}} costituisce una componente essenziale all'interno del panorama del software predittivo, assumendo la forma di una classe astratta progettata per essere estesa da quei componenti specializzati nell'orchestrare il comportamento di produzione dei dati. \\
+    La sua implementazione avanzata pone l'accento su un approccio modulare e flessibile, consentendo la gestione efficiente e personalizzata della produzione di dati per soddisfare le specifiche esigenze di ogni caso di studio. 
+
+    Un aspetto distintivo di \textit{AbstractProducerActor} è la sua abilità di monitorare costantemente un percorso specifico del file system alla ricerca di nuovi file.
+    Questa funzionalità è fondamentale per garantire un flusso continuo di dati, consentendo al componente di reagire dinamicamente all'arrivo di nuovi dati nel sistema.
+    La capacità di rimanere in ascolto e di reagire prontamente alle variazioni nel file system riflette un approccio all'avanguardia alla gestione delle fonti di dati, sottolineando la flessibilità e la reattività del sistema predittivo. 
+
+    Parallelamente, l'\textit{AbstractProducerActor} è progettato per avviare una sessione di scrittura verso un topic \textit{Kafka} specifico del caso di studio.
+    Questa scelta progettuale mira a garantire che i nuovi dati prodotti siano inoltrati in maniera coerente e asincrona al sistema di messaging, contribuendo a creare un flusso dati continuo e efficiente.
+    L'inizializzazione di una sessione dedicata per la scrittura dimostra una consapevolezza delle necessità di comunicazione del sistema predittivo.
+    Durante le operazioni, l'\textit{AbstractProducerActor} invia i nuovi dati prodotti al topic \textit{Kafka}, completando il ciclo di produzione e inoltrando le informazioni ai componenti successivi per ulteriori analisi o elaborazioni.
+    Questa fase sottolinea l'importanza della coerenza nella trasmissione dei dati attraverso il sistema, garantendo che i nuovi dati siano prontamente resi disponibili per le fasi successive di elaborazione o analisi.
+    \item \textit{\textbf{AbstractAnalyzerActor}} si configura come una classe astratta progettata per essere estesa da quei componenti specializzati nell'effettuare calcoli e generare dati statistici sul dataset complessivo di input. \\
+    La sua implementazione avanzata pone l'accento su un approccio modulare e flessibile, consentendo la realizzazione di analisi personalizzate e specifiche per soddisfare le esigenze di ogni singolo caso di studio.
+
+    Una caratteristica distintiva di \textit{AbstractAnalyzerActor} è la sua capacità di calcolare dati statistici sul dataset complessivo di input, il quale è composto sia dal dataset storico che dai dati di input grezzi processati dalla piattaforma e salvati dal consumer.
+    Questa funzionalità è fondamentale per ottenere una visione globale e approfondita delle caratteristiche del dataset, consentendo analisi avanzate e produzione di informazioni significative per le fasi successive del processo decisionale.
+    La capacità di integrare sia dati storici che nuovi dati enfatizza la completezza dell'approccio analitico del sistema.
+    
+    Inoltre, l'\textit{AbstractAnalyzerActor} è progettato per avviare una sessione di \textit{Spark} dedicata all'analisi, garantendo un ambiente di calcolo parallelo distribuito per gestire in modo efficiente operazioni complesse su grandi volumi di dati.
+    L'inizializzazione di una sessione ad hoc riflette l'attenzione alle esigenze computazionali specifiche dell'analisi, garantendo un'elaborazione efficiente e scalabile delle informazioni.
+    
+    Durante le operazioni, l'\textit{AbstractAnalyzerActor} gestisce i messaggi di avvio e termine analisi, orchestrando il flusso di operazioni richieste per condurre analisi statistiche avanzate.
+    La sua struttura modulare consente l'invocazione di funzioni specializzate all'interno di componenti specifici, permettendo un elevato grado di personalizzazione nell'esecuzione dell'analisi.
+    \item \textit{\textbf{AbstractStatsFeederActor}} configurandosiè configurato come una classe astratta progettata per essere estesa da quei componenti specializzati nel gestire il consumo dei dati statistici. \\
+    La sua implementazione avanzata mira a fornire un approccio modulare e altamente personalizzabile, consentendo la gestione efficiente e adattabile dei dati statistici in risposta alle esigenze specifiche di ciascun contesto applicativo.
+
+    Una delle caratteristiche distintive di \textit{AbstractStatsFeederActor} è la sua capacità di ricevere il dataset statistico risultante dall'\textit{AbstractAnalyzerActor}, che svolge l'analisi dei dati complessivi.
+    Tale funzionalità riveste un ruolo cruciale nell'ecosistema del software predittivo, in quanto permette al sistema di utilizzare dati statistici aggiornati e significativi nelle fasi successive del processo decisionale.
+    La capacità di ricevere e distribuire dati statistici, derivati da analisi avanzate, riflette la complessità e la completezza dell'approccio adottato dal sistema predittivo.
+    
+    Inoltre, l'\textit{AbstractStatsFeederActor} è progettato per restituire il dataset statistico a fronte di richieste provenienti dal consumer.
+    Questa caratteristica aggiunge un elemento di flessibilità e interattività al sistema, consentendo al Consumer di ottenere dati statistici specifici in modo dinamico in risposta alle sue esigenze.
+    La gestione delle richieste e la trasmissione tempestiva dei dati statistici riflettono la volontà di creare un sistema predittivo reattivo e altamente adattabile alle richieste dell'utente finale.
+    
+    Durante le operazioni, l'\textit{AbstractStatsFeederActor} coordina il flusso di dati statistici, garantendo una consegna efficiente e coerente alle componenti del sistema che ne fanno richiesta.
+    La sua struttura modulare consente l'invocazione di funzioni specializzate all'interno di componenti specifici, permettendo un elevato grado di personalizzazione nella gestione dei dati statistici.
+\end{itemize}
+
