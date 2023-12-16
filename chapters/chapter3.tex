@@ -80,3 +80,43 @@ Questo dataset è bilanciato e comprende 21 variabili:
   Education & 1-6 & Livello di istruzione \\
   Income & 1-8 & Reddito \\
 \end{longtable}
+
+\section[Risultati]{Risultati del caso di studio}
+  
+\begin{figure}[h]
+  \centering
+  \definecolor{barcolor}{RGB}{0, 102, 193} % Colore delle barre
+  \definecolor{gridcolor}{RGB}{180, 180, 180} % Colore della griglia
+  \definecolor{labelcolor}{RGB}{51, 51, 51} % Colore del testo
+  
+  \begin{tikzpicture}
+  \begin{axis}[
+      title={Accuratezza degli algoritmi},
+      xlabel={Accuratezza (\%)},
+      symbolic y coords={Algoritmo1, Algoritmo2, Algoritmo3, Algoritmo4, Algoritmo5},
+      ytick=data,
+      nodes near coords,
+      nodes near coords align={horizontal}, % Orientamento orizzontale per le etichette
+      xbar,
+      bar width=15pt,
+      xmin=0, xmax=100, % Imposta il range dell'asse x
+      enlarge y limits=0.15, % Aumenta lo spazio tra le barre e i bordi dell'asse y
+      legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1, draw=none}, % Elimina la cornice della legenda
+      xmajorgrids=true, ymajorgrids=true, % Aggiunge griglia verticale e orizzontale
+      grid style={line width=0.5pt, draw=gridcolor}, % Stile più sottile per la griglia
+      axis line style={draw=none}, % Elimina la riga orizzontale interna
+      tick label style={font=\footnotesize, color=labelcolor}, % Stile delle etichette
+  ]
+  
+  % Aggiungi i dati del tuo CSV qui (sostituisci con i tuoi valori)
+  \addplot[fill=barcolor, draw=black] coordinates {(85,Algoritmo1) (92,Algoritmo2) (78,Algoritmo3) (88,Algoritmo4) (90,Algoritmo5)};
+  
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Accuratezza nei dati di test per diversi algoritmi.}
+  \label{fig:accuratezza_algoritmi}
+  \end{figure}
+  
+  
+  
+  
