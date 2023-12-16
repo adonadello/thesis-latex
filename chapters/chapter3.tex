@@ -86,7 +86,6 @@ Questo dataset è bilanciato e comprende 21 variabili:
 \begin{figure}[h]
   \centering
   \definecolor{barcolor}{RGB}{0, 102, 193} % Colore delle barre
-  \definecolor{gridcolor}{RGB}{180, 180, 180} % Colore della griglia
   \definecolor{labelcolor}{RGB}{51, 51, 51} % Colore del testo
   
   \begin{tikzpicture}
@@ -95,16 +94,14 @@ Questo dataset è bilanciato e comprende 21 variabili:
       xlabel={Accuratezza (\%)},
       symbolic y coords={Algoritmo1, Algoritmo2, Algoritmo3, Algoritmo4, Algoritmo5},
       ytick=data,
-      nodes near coords,
-      nodes near coords align={horizontal}, % Orientamento orizzontale per le etichette
       xbar,
       bar width=15pt,
-      xmin=0, xmax=100, % Imposta il range dell'asse x
-      enlarge y limits=0.15, % Aumenta lo spazio tra le barre e i bordi dell'asse y
-      legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1, draw=none}, % Elimina la cornice della legenda
-      xmajorgrids=true, ymajorgrids=true, % Aggiunge griglia verticale e orizzontale
-      grid style={line width=0.5pt, draw=gridcolor}, % Stile più sottile per la griglia
-      axis line style={draw=none}, % Elimina la riga orizzontale interna
+      xmin=0, xmax=100,
+      enlarge y limits=0.15, 
+      legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1, draw=none}, 
+      xmajorgrids=true, ymajorgrids=false,
+      grid style={line width=0.5pt, color=labelcolor},
+      axis line style={draw=none}, 
       tick label style={font=\footnotesize, color=labelcolor}, % Stile delle etichette
   ]
   
