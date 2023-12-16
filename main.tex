@@ -14,6 +14,8 @@
 \usepackage{lmodern}
 \usepackage{float}
 \usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
 
 \lstset{
   belowcaptionskip=1\baselineskip,
@@ -33,8 +35,6 @@
 \setlength{\textfloatsep}{28.0pt plus 14.0pt minus 14.0pt}
 \setlength{\floatsep}{28.0pt plus 14.0pt minus 14.0pt}
 \setlength{\intextsep}{28.0pt plus 14.0pt minus 14.0pt}
-
-\setcounter{tocdepth}{4}
 
 \graphicspath{{images/}}
 
@@ -79,8 +79,11 @@
     \chapter[Programmazione ad Attori]{Attori: Scalabilità e Resilienza nel Modello di Programmazione}
     \input{chapters/chapter1}
 
-    \chapter[Software ]{Progettazione e implementazione di un software predittivo}
+    \chapter[Pipeline predittiva]{Progettazione e implementazione di un software predittivo}
     \input{chapters/chapter2.tex}
+
+    \chapter[Caso di studio]{Caso di studio}
+    \input{chapters/chapter3.tex}
 
     \input{chapters/conclusions}
 

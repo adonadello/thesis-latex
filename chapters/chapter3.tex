@@ -1,0 +1,82 @@
+\section[Tema]{Tema}
+Il diabete si configura come uno dei disturbi di natura cronica più ampiamente diffusi all'interno del panorama sanitario degli Stati Uniti, coinvolgendo annualmente un considerevole numero di cittadini americani e gravando pesantemente sull'economia nazionale. 
+Tale condizione costituisce una patologia di natura cronica, la cui gravità risiede nella perdita da parte degli individui della capacità di gestire efficacemente i livelli di glucosio presenti nel circolo ematico, con il risultato di una possibile riduzione della qualità della vita e dell'aspettativa di vita.
+In seguito al processo di digestione, durante il quale vari alimenti vengono trasformati in zuccheri, questi ultimi trovano via libera nel flusso sanguigno, innescando una risposta del pancreas che conduce alla liberazione dell'insulina.
+Quest'ultima svolge un ruolo cruciale nell'agevolare l'utilizzo degli zuccheri da parte delle cellule dell'organismo per soddisfare il fabbisogno energetico. 
+La sintomatologia del diabete si caratterizza, in genere, per l'inadeguata produzione d'insulina da parte dell'organismo o per una scarsa capacità di utilizzare l'insulina prodotta in maniera efficiente.
+
+Le complicazioni, quali le affezioni cardiache, la compromissione della vista, l'amputazione degli arti inferiori e i disturbi renali, sono strettamente correlate ai livelli cronici eccessivi di zucchero presenti nel circolo sanguigno dei soggetti affetti da diabete.
+Tali complicanze impongono un peso aggiuntivo sulla vita quotidiana di coloro che convivono con questa patologia, riducendo la qualità della vita e limitando l'aspettativa di vita. 
+Nonostante la mancanza di una cura definitiva, esistono diverse strategie di gestione che consentono di mitigare gli effetti nocivi di questa patologia in un numero considerevole di pazienti.
+La perdita di peso, un regime alimentare sano, l'attività fisica regolare e l'impiego di trattamenti medici mirati rappresentano alcune delle misure di prevenzione e gestione efficaci per contrastare il diabete.
+La diagnosi precoce gioca un ruolo chiave in questo contesto, permettendo l'adozione tempestiva di modifiche nello stile di vita e l'avvio di trattamenti più efficaci, circostanza che rende i modelli predittivi del rischio di diabete strumenti di fondamentale importanza per gli operatori del settore sanitario pubblico.
+
+È imprescindibile cogliere l'ampiezza di questo problema.
+Secondo quanto riferito dai \textit{Centers for Disease Control and Prevention} (CDC), nel 2018 ben 34,2 milioni di cittadini americani erano affetti da diabete, mentre 88 milioni presentavano una condizione di prediabete.
+Questi numeri sottolineano la vastità del problema e la sua diffusione su scala nazionale.
+Inoltre, il CDC stima che uno su cinque soggetti affetti da diabete e circa otti su dieci individui con prediabete ignorino il proprio stato di rischio.
+La mancanza di consapevolezza riguardo al rischio di sviluppare il diabete rappresenta una sfida significativa per la prevenzione e la gestione di questa patologia.
+È pertanto necessario intensificare gli sforzi di informazione e sensibilizzazione per promuovere la consapevolezza sulla prevenzione del diabete.
+
+Pur esistendo varie forme di diabete, il diabete di tipo II rappresenta la variante più comune e la sua incidenza varia in relazione a fattori quali età, istruzione, reddito, posizione geografica, razza e altri elementi determinanti dell'aspetto salutistico.
+Il fatto che il diabete abbia una diffusione differenziata in base a questi fattori mette in evidenza la complessità e la diversità del problema.
+In particolare, i dati evidenziano che le comunità con un basso reddito e un livello di istruzione più limitato tendono a sperimentare una maggiore prevalenza del diabete.
+In questo contesto, emerge la necessità di affrontare il diabete da una prospettiva di giustizia sociale, garantendo l'accesso alle risorse e alle informazioni necessarie a tutte le fasce della popolazione.
+
+Non va trascurato il fatto che il peso di questa patologia si riversa preponderantemente sui soggetti con un basso livello di sviluppo socioeconomico.
+Il diabete impone altresì un gravoso onere economico, con costi diagnostici associati al diabete stimati a circa 327 miliardi di dollari e costi totali, che comprendono il diabete non diagnosticato e il prediabete, che si attestano intorno ai 400 miliardi di dollari annui \cite{diabetesEconomics}.
+Questi costi rappresentano una considerevole spesa per il sistema sanitario e l'economia nazionale, sottolineando ulteriormente l'importanza di investire nella prevenzione, nella diagnosi precoce e nella gestione efficace del diabete.
+Gli sforzi per ridurre il costo sociale ed economico del diabete devono essere basati su strategie di prevenzione e sul miglioramento dell'accesso a cure efficaci, allo scopo di ridurre il numero di casi di diabete e migliorare la gestione delle condizioni esistenti.
+
+\section[Dataset]{Dataset}
+Il \textit{Behavioral Risk Factor Surveillance System} (SSFR) è un sondaggio telefonico correlato alla salute raccolto annualmente dai \textit{Centers for Disease Control and Prevention}.
+Ogni anno, il sondaggio raccoglie le risposte di oltre 400.000 cittadini americani su comportamenti a rischio per la salute, condizioni croniche di salute e l'utilizzo di servizi preventivi.
+Questa iniziativa è stata avviata ininterrottamente dal 1984.
+Per questo progetto, è stato utilizzato un file CSV del set di dati disponibile su Kaggle relativo all'anno 2015 \cite{dataset}. \\
+Questo set di dati contiene le risposte di 441.455 individui e comprende 330 caratteristiche.
+Queste caratteristiche sono rappresentate sia da domande direttamente rivolte ai partecipanti, sia da variabili calcolate sulla base delle risposte individuali dei partecipanti.
+
+Il dataset utilizzato per lo studio in questo software è "\textit{diabetes-binary-5050split-health-indicators-BRFSS2015.csv}", un insieme di dati pulito composto da 70.692 risposte a un sondaggio condotto dal CDC nell'anno 2015, noto come \textit{BRFSS2015}. \\
+Il dataset presenta una distribuzione equa del 50-50 tra i partecipanti senza diabete e coloro con prediabete o diabete.
+La variabile target "\textit{Diabetes-binary}" ha 2 classi: 0 indica l'assenza di diabete, mentre 1 indica la presenza di prediabete o diabete.
+
+Questo dataset è bilanciato e comprende 21 variabili:
+
+\begin{longtable}{lp{2cm}p{8cm}}
+  \toprule
+  \textbf{Nome Variabile} & \textbf{Valori} & \textbf{Descrizione} \\
+  \midrule
+  \endfirsthead
+  \multicolumn{3}{l}{{Continua dalla pagina precedente}} \\
+  \toprule
+  \textbf{Nome Variabile} & \textbf{Valori} & \textbf{Descrizione} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \multicolumn{3}{r}{{Continua nella pagina successiva}} \\
+  \endfoot
+  \bottomrule
+  \caption{Descrizione delle variabili nel dataset.}
+  \endlastfoot
+  HighBP & 0, 1 & Presenza di alta pressione \\
+  HighChol & 0, 1 & Presenza di colesterolo alto \\
+  CholCheck & 0, 1 & Controllo del colesterolo negli ultimi 5 anni \\
+  BMI & & Indice di Massa Corporea \\
+  Smoker & 0, 1 & Fumatore (almeno 100 sigarette nella vita) \\
+  Stroke & 0, 1 & Presenza di ictus \\
+  HeartDiseaseorAttack & 0, 1 & Presenza di malattia coronarica o infarto miocardico \\
+  PhysActivity & 0, 1 & Pratica di attività fisica negli ultimi 30 giorni \\
+  Fruits & 0, 1 & Consumo quotidiano di frutta \\
+  Veggies & 0, 1 & Consumo quotidiano di verdure \\
+  HvyAlcoholConsump & 0, 1 & Consumo pesante di alcol \\
+  AnyHealthcare & 0, 1 & Presenza di copertura sanitaria \\
+  NoDocbcCost & 0, 1 & Impedimento a vedere un medico per motivi economici \\
+  GenHlth & 1-5 & Valutazione generale della salute (scala da 1 a 5) \\
+  MentHlth & 1-30 & Giorni di cattiva salute mentale (scala da 1 a 30) \\
+  PhysHlth & 1-30 & Giorni di malattia fisica o lesioni negli ultimi 30 giorni (scala da 1 a 30) \\
+  DiffWalk & 0, 1 & Difficoltà seria a camminare o salire le scale \\
+  Sex & 0, 1 & Genere (0 = Femminile, 1 = Maschile) \\
+  Age & 1-13 & Categoria di età \\
+  Education & 1-6 & Livello di istruzione \\
+  Income & 1-8 & Reddito \\
+\end{longtable}
