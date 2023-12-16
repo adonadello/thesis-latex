@@ -92,11 +92,11 @@ Questo dataset è bilanciato e comprende 21 variabili:
   \begin{axis}[
       title={Accuratezza degli algoritmi},
       xlabel={Accuratezza (\%)},
-      symbolic y coords={Algoritmo1, Algoritmo2, Algoritmo3, Algoritmo4, Algoritmo5},
+      symbolic y coords={LogisticRegression, DecisionTreeClassifier, RandomForestClassifier, LinearSVC, GBTClassifier},
       ytick=data,
       xbar,
       bar width=15pt,
-      xmin=0, xmax=100,
+      xmin=70, xmax=80,
       enlarge y limits=0.15, 
       legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1, draw=none}, 
       xmajorgrids=true, ymajorgrids=false,
@@ -106,13 +106,13 @@ Questo dataset è bilanciato e comprende 21 variabili:
   ]
   
   % Aggiungi i dati del tuo CSV qui (sostituisci con i tuoi valori)
-  \addplot[fill=barcolor, draw=black] coordinates {(85,Algoritmo1) (92,Algoritmo2) (78,Algoritmo3) (88,Algoritmo4) (90,Algoritmo5)};
+  \addplot[fill=barcolor, draw=black] coordinates {(74.61157024793389,LogisticRegression) (73.5112160566706,DecisionTreeClassifier) (74.48993949627128,RandomForestClassifier) (74.36127508854782,LinearSVC) (74.95147469582919,GBTClassifier)};
   
   \end{axis}
   \end{tikzpicture}
-  \caption{Accuratezza nei dati di test per diversi algoritmi.}
+  \caption{Accuratezza nei dati di test per diversi algoritmi}
   \label{fig:accuratezza_algoritmi}
-  \end{figure}
+\end{figure}
   
   
   
