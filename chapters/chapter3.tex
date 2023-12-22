@@ -81,12 +81,61 @@ Questo dataset è bilanciato e comprende 21 variabili:
   Income & 1-8 & Reddito \\
 \end{longtable}
 
+\subsection[Algortimi]{Algortimi ML utilizzati}
+
+Nel contesto di questa ricerca, ci siamo dedicati all'analisi delle complesse dinamiche dei dati attraverso l'impiego di avanzati algoritmi di classificazione.
+
+\begin{itemize}
+  \item \textbf{Gradient Boosting Classifier}, abbreviato come GBTClassifier, è un potente algoritmo di apprendimento automatico che appartiene alla categoria degli algoritmi di boosting.
+  L'obiettivo principale di GBTClassifier è costruire un modello predittivo attraverso l'aggregazione sequenziale di modelli più deboli, generalmente alberi decisionali, ciascuno dei quali corregge gli errori del modello precedente.
+  GBTClassifier migliora progressivamente la sua capacità predittiva, concentrandosi sugli errori residui del modello precedente, e integrando queste correzioni per ottenere un modello complessivamente più robusto e preciso.
+  Questo processo iterativo di addestramento rende GBTClassifier particolarmente adatto per gestire dati complessi e non lineari, fornendo risultati di elevata accuratezza nelle attività di classificazione.
+  La sua flessibilità e capacità di adattamento lo rendono uno strumento efficace in una varietà di contesti applicativi, dall'analisi finanziaria alla classificazione di testo e altro ancora.
+  \item Il \textbf{Linear Support Vector Classifier}, o LinearSVC, è un algoritmo di classificazione che fa parte della famiglia di modelli basati sulle Support Vector Machines (SVM).
+  Contrariamente a SVM non lineari, LinearSVC si focalizza sulla separazione lineare dei dati, il che significa che cerca di trovare un iperpiano nel nostro spazio di feature che meglio divide le diverse classi.
+  LinearSVC si distingue per la sua efficienza nel trattare grandi quantità di dati e per la sua capacità di gestire problemi di classificazione binaria e multiclasse.
+  La sua natura lineare semplifica l'interpretazione del modello e può essere particolarmente efficace in situazioni in cui la relazione tra le feature e la variabile di risposta è approssimativamente lineare.
+  \item Il \textbf{RandomForestClassifier} è un potente algoritmo di apprendimento automatico che appartiene alla famiglia degli algoritmi di \textit{ensemble}, più precisamente alla categoria dei \textit{random forest} (foreste casuali).
+  Questo algoritmo opera creando una serie di alberi decisionali durante il processo di addestramento e quindi combinandoli per ottenere una previsione più robusta e accurata.
+  La peculiarità del RandomForestClassifier risiede nel fatto che ogni albero viene costruito in modo casuale, sia nella selezione delle feature utilizzate che nel campionamento dei dati di addestramento.
+  Questo aspetto di casualità contribuisce a ridurre il rischio di \textit{overfitting} (sovradattamento) e aumenta la generalizzazione del modello.
+  Durante la fase di previsione, ciascun albero contribuisce con il proprio voto, e la classe più votata diventa la previsione finale del modello.
+  \item Il \textbf{DecisionTreeClassifier} è un algoritmo di apprendimento automatico che appartiene alla categoria degli alberi decisionali.
+  Questo tipo di modello costruisce una struttura ad albero durante il processo di addestramento, suddividendo iterativamente il set di dati in base alle feature più informative per la classificazione.
+  Il funzionamento dell'algoritmo è il seguente: inizia con un nodo radice che rappresenta l'intero set di dati, quindi seleziona la feature che meglio separa le classi.
+  Il set di dati viene suddiviso in base a questa feature, generando nodi figli.
+  Il processo si ripete in modo ricorsivo per ciascun nodo figlio, suddividendo ulteriormente il set di dati fino a raggiungere foglie che rappresentano le classi di output.
+  Il DecisionTreeClassifier è apprezzato per la sua interpretabilità e capacità di catturare relazioni complesse nei dati.
+  Tuttavia, è importante gestire il rischio di overfitting, poiché l'algoritmo potrebbe adattarsi eccessivamente ai dati di addestramento, compromettendo la generalizzazione a nuovi dati.
+  \item La \textbf{Logistic Regression} (Regressione Logistica) è un algoritmo di apprendimento automatico utilizzato principalmente per problemi di classificazione binaria, sebbene possa essere esteso anche a problemi multiclasse.
+  Contrariamente al nome, la Logistic Regression è impiegata per problemi di classificazione anziché di regressione.
+  L'algoritmo si basa su una funzione logistica (\textit{sigmoide}) che mappa la somma ponderata delle \textit{feature} di input a un valore compreso tra 0 e 1.
+  Questa mappa è interpretata come la probabilità che un'istanza appartenga alla classe positiva.
+  Se la probabilità supera una soglia prestabilita (generalmente 0.5), l'istanza viene classificata come positiva; altrimenti, viene classificata come negativa.
+  La Regressione Logistica è apprezzata per la sua semplicità, interpretabilità e capacità di gestire problemi di classificazione lineari.
+  È ampiamente utilizzata in scenari in cui è importante comprendere il contributo relativo delle diverse feature nel processo decisionale.
+  Tuttavia, è essenziale notare che la Regressione Logistica assume una relazione lineare tra le feature e il logaritmo delle odds di appartenenza a una classe, il che potrebbe non essere adeguato per problemi con relazioni complesse o non lineari.
+\end{itemize}
+
+La diversità di questi algoritmi riflette la nostra volontà di adottare un approccio poliedrico per esplorare le sfumature e le relazioni nei dati nel corso del tempo.
+Attraverso questa approfondita analisi, miriamo a offrire una prospettiva completa e precisa sulle dinamiche sottostanti oggetto del nostro studio.
+
 \section[Risultati]{Risultati del caso di studio}
+
+All'interno del nostro corpus di analisi, troviamo un elenco esaustivo degli algoritmi di classificazione che sono stati implementati attraverso i rispettivi modelli, ciascuno associato al proprio valore di accuratezza.
+La struttura di questa lista segue un formato ben definito, includendo la data di costruzione del modello, l'algoritmo utilizzato, l'indicatore di accuratezza, nonché il numero di elementi presenti sia nel set di addestramento che in quello di test.
+
+La costruzione di ciascun modello, intrapresa in date specifiche, fornisce un punto di riferimento temporale cruciale per comprendere l'evoluzione delle tecniche di classificazione nel corso del tempo.
+Ogni algoritmo impiegato viene dettagliatamente registrato, accompagnato da un indicatore di accuratezza che quantifica la sua performance.
+Questo indicatore offre un'istantanea chiara dell'efficacia predittiva dell'algoritmo in questione.
+
+La ricca documentazione degli elementi presenti nei set di addestramento e di test completa questa prospettiva, consentendo un'analisi approfondita della generalizzazione del modello oltre il suo ambiente di addestramento.
+Attraverso questa metodologia dettagliata, siamo in grado di esaminare con precisione come ciascun algoritmo si è comportato in diverse fasi di sviluppo del modello, valutando la sua capacità di apprendere e generalizzare le caratteristiche distintive dei dati di training per poi applicarle in modo efficace a nuovi dati di test.
   
 \begin{figure}[h]
   \centering
-  \definecolor{barcolor}{RGB}{0, 102, 193} % Colore delle barre
-  \definecolor{labelcolor}{RGB}{51, 51, 51} % Colore del testo
+  \definecolor{barcolor}{RGB}{0, 102, 193} 
+  \definecolor{labelcolor}{RGB}{51, 51, 51}
   
   \begin{tikzpicture}
   \begin{axis}[
@@ -102,10 +151,9 @@ Questo dataset è bilanciato e comprende 21 variabili:
       xmajorgrids=true, ymajorgrids=false,
       grid style={line width=0.5pt, color=labelcolor},
       axis line style={draw=none}, 
-      tick label style={font=\footnotesize, color=labelcolor}, % Stile delle etichette
+      tick label style={font=\footnotesize, color=labelcolor},
   ]
   
-  % Aggiungi i dati del tuo CSV qui (sostituisci con i tuoi valori)
   \addplot[fill=barcolor, draw=black] coordinates {(74.61157024793389,LogisticRegression) (73.5112160566706,DecisionTreeClassifier) (74.48993949627128,RandomForestClassifier) (74.36127508854782,LinearSVC) (74.95147469582919,GBTClassifier)};
   
   \end{axis}
