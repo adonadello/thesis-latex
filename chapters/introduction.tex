@@ -29,7 +29,7 @@ La tipica architettura Lambda può essere suddivisa in tre strati distinti:
 \begin{itemize}
     \item \textbf{Batch Layer}: deputato all'elaborazione batch, tipicamente con paradigma MapReduce, svolgendo anche il compito di persistere il master dataset e garantirne l'allineamento e la consistenza.
     \item \textbf{Speed Layer}: l'elemento di innovazione, deputato al processamento dei dati in tempo reale attingendo dal flusso di input.
-    \item \textbf{Serving Layer}: interfaccia verso l'esterno, offre servizi di interrogazione e fornisce in maniera trasparente all'utente un unico virtuale dataset costituito aggregando opportunamente i dati prodotti dalle componenti batch e real time.
+    \item \textbf{Serving Layer}: interfaccia verso l'esterno, offre servizi di interrogazione e fornisce in maniera trasparente all'utente un unico dataset virtuale, costituito aggregando opportunamente i dati prodotti dalle componenti batch e real time.
 \end{itemize}
 
 \begin{figure}[H]
